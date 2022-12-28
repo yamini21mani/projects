@@ -1,0 +1,797 @@
+package com.te.learningmanagementsystem.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Service;
+
+import com.te.learningmanagementsystem.dto.AddressDto;
+import com.te.learningmanagementsystem.dto.AdminShowRequestDto;
+import com.te.learningmanagementsystem.dto.BankDetailsDto;
+import com.te.learningmanagementsystem.dto.BatchDetailsDto;
+import com.te.learningmanagementsystem.dto.ContactDto;
+import com.te.learningmanagementsystem.dto.DemoDto;
+import com.te.learningmanagementsystem.dto.EmployeelistInBatch;
+import com.te.learningmanagementsystem.dto.EducationalDetailsDto;
+import com.te.learningmanagementsystem.dto.EmployeeDto;
+import com.te.learningmanagementsystem.dto.ExperienceDto;
+import com.te.learningmanagementsystem.dto.MentorDeleteDto;
+import com.te.learningmanagementsystem.dto.MentorListDto;
+import com.te.learningmanagementsystem.dto.MentorUpdateDto;
+import com.te.learningmanagementsystem.dto.MockDetailsDto;
+import com.te.learningmanagementsystem.dto.MockInfoDto;
+import com.te.learningmanagementsystem.dto.PasswordChecking;
+import com.te.learningmanagementsystem.dto.PrimaryInfoDto;
+import com.te.learningmanagementsystem.dto.RequestListForEmployee;
+import com.te.learningmanagementsystem.dto.SecondaryInfoDto;
+import com.te.learningmanagementsystem.dto.StatusDto;
+import com.te.learningmanagementsystem.dto.TechnicalDto;
+import com.te.learningmanagementsystem.entity.AddressInfo;
+import com.te.learningmanagementsystem.entity.ApproveListByAdmin;
+import com.te.learningmanagementsystem.entity.BankDetails;
+import com.te.learningmanagementsystem.entity.BatchDetails;
+//import com.te.learningmanagementsystem.entity.Bank_Details;
+//import com.te.learningmanagementsystem.entity.Batch_Details;
+import com.te.learningmanagementsystem.entity.ContactInfo;
+import com.te.learningmanagementsystem.entity.EducationalDetails;
+//import com.te.learningmanagementsystem.entity.Educational_Details;
+import com.te.learningmanagementsystem.entity.ExperienceInfo;
+import com.te.learningmanagementsystem.entity.MentorDisplay;
+import com.te.learningmanagementsystem.entity.MentorEntity;
+import com.te.learningmanagementsystem.entity.MockDetails;
+import com.te.learningmanagementsystem.entity.MockInfo;
+import com.te.learningmanagementsystem.entity.PrimaryInfo;
+import com.te.learningmanagementsystem.entity.SecondaryInfo;
+//import com.te.learningmanagementsystem.entity.Secondary_Info;
+import com.te.learningmanagementsystem.entity.TechnicalInfo;
+import com.te.learningmanagementsystem.exception.InvalidId;
+import com.te.learningmanagementsystem.passwordgenerator.PasswordGenerator;
+import com.te.learningmanagementsystem.repository.AddressRepository;
+import com.te.learningmanagementsystem.repository.ApproveRepositary;
+import com.te.learningmanagementsystem.repository.BankDetailsRepository;
+import com.te.learningmanagementsystem.repository.BatchDetailRepository;
+import com.te.learningmanagementsystem.repository.ContactRepository;
+import com.te.learningmanagementsystem.repository.EmployeelistRepositary;
+import com.te.learningmanagementsystem.repository.DemoDtoRepository;
+import com.te.learningmanagementsystem.repository.EducationalRepository;
+import com.te.learningmanagementsystem.repository.ExperienceRepository;
+import com.te.learningmanagementsystem.repository.MentorDisplayRepository;
+import com.te.learningmanagementsystem.repository.MentorEntityRepository;
+import com.te.learningmanagementsystem.repository.MockDetailRepository;
+import com.te.learningmanagementsystem.repository.MockInfoRepository;
+import com.te.learningmanagementsystem.repository.PrimaryInfoRepository;
+import com.te.learningmanagementsystem.repository.SecondaryRepository;
+import com.te.learningmanagementsystem.repository.StatusRepository;
+import com.te.learningmanagementsystem.repository.TechnicalRepository;
+import com.te.learningmanagementsystem.serviceInterface.EmployeeService;
+
+
+
+@Service
+public  class EmployeeServiceImp implements EmployeeService {
+	@Autowired
+	private PasswordChecking passwordChecking;
+	// Repository
+	@Autowired
+	private MentorDisplayRepository mentorDisplayRepository;
+	@Autowired
+	private BankDetailsRepository bankDetailsRepository;
+
+	@Autowired
+	private ApproveRepositary approveRepositary;
+
+	@Autowired
+	private StatusRepository statusRepository;
+	@Autowired
+	private BatchDetailRepository batchDetailRepository;
+	@Autowired
+	private DemoDtoRepository demoDtoRepository;
+	@Autowired
+	private EducationalRepository educationalRepository;
+	@Autowired
+	private AddressRepository addressRepository;
+	@Autowired
+	private ContactRepository contactRepository;
+	@Autowired
+	private ExperienceRepository experienceRepository;
+	@Autowired
+	private TechnicalRepository technicalRepository;
+	@Autowired
+	private PrimaryInfoRepository primaryInfoRepository;
+	@Autowired
+	private MockDetailRepository mockDetailRepository;
+	@Autowired
+	private MockInfoRepository mockInfoRepository;
+	@Autowired
+	private SecondaryRepository secondaryRepository;
+	@Autowired
+	private MentorEntityRepository mentorEntityRepository;
+
+	// PasswordCreate
+	@Autowired
+	private PasswordGenerator passwordGenerator;
+
+	// entity
+	@Autowired
+	private MentorDisplay mentorDisplay;
+	
+	
+//	private DemoDtoForMentor demoDtoForMentor;
+	@Autowired
+	private DemoDto demoDto;
+	@Autowired
+	private EducationalDetails educationalDetails;
+	@Autowired
+	private MockInfo mockInfo;
+	@Autowired
+	private MockDetails mockDetails;
+	@Autowired
+	private PrimaryInfo primaryInfo;
+	@Autowired
+	private AddressInfo addressInfo;
+	@Autowired
+	private ContactInfo contactInfo;
+	@Autowired
+	private BankDetails bankDetails;
+	@Autowired
+	private BatchDetails batchDetails;
+//	@Autowired
+//	private Secondary_Info secondary_Info;
+	@Autowired
+	private ExperienceInfo experienceInfo;
+	@Autowired
+	private TechnicalInfo technicalInfo;
+
+//deleteApi
+	@Override
+	public String deleteAddress(AddressDto addressDto) {
+		BeanUtils.copyProperties(addressDto, addressInfo);
+		AddressInfo addInfo = addressRepository.findById(addressInfo.getsNo()).orElse(null);
+		addressRepository.delete(addInfo);
+		return null;
+	}
+
+	@Override
+	public String deleteExperience(ExperienceDto experienceDto) {
+		BeanUtils.copyProperties(experienceDto, experienceInfo);
+		ExperienceInfo Expinfo = experienceRepository.findById(experienceDto.getsNo()).orElse(null);
+		experienceRepository.delete(Expinfo);
+		return null;
+	}
+
+	@Override
+	public String deleteContact(ContactDto contactDto) {
+		BeanUtils.copyProperties(contactDto, contactInfo);
+		ContactInfo conInfo = contactRepository.findById(contactInfo.getContactNumber()).orElse(null);
+		contactRepository.delete(conInfo);
+		return null;
+	}
+
+	@Override
+	public String deleteTechnical(TechnicalDto technicalDto) {
+		BeanUtils.copyProperties(technicalDto, technicalInfo);
+		TechnicalInfo techInfo = technicalRepository.findById(technicalInfo.getsNo()).orElse(null);
+		technicalRepository.delete(techInfo);
+		return null;
+	}
+
+	@Override
+	public String deleteEmployeedata(EmployeeDto employeeDto) {
+		BeanUtils.copyProperties(employeeDto, primaryInfo);
+		PrimaryInfo primarytable = primaryInfoRepository.findById(primaryInfo.getEmpId()).orElse(null);
+		primaryInfoRepository.delete(primarytable);
+		return null;
+	}
+
+//Mock Info API's	
+	@Override
+	public boolean createMockData(MockDetailsDto mockDetailsDto) {
+			BeanUtils.copyProperties(mockDetailsDto, mockDetails);
+			mockDetails.setMockno(mockDetailsDto.getMockno());
+			mockDetails.setSno(mockDetailsDto.getSno());
+			mockDetails.setPanel(mockDetailsDto.getPanel());
+			mockDetails.setDateAndTime(mockDetailsDto.getDateAndTime());
+			mockDetails.setTechnology(mockDetailsDto.getTechnology());
+			MockDetails save = mockDetailRepository.save(mockDetails);
+			if (save != null) {
+				return true;
+			} else
+				throw new InvalidId("Mock not created please check your fields");
+		
+	}
+
+
+	@Override
+	public MockDetails getMockDetails(MockDetailsDto mockDetailsDto) {
+		BeanUtils.copyProperties(mockDetailsDto, mockDetails);
+		MockDetails getDetail = mockDetailRepository.findById(mockDetails.getSno()).orElse(null);
+
+		return getDetail;
+	}
+
+	@Override
+	public MockDetails updateMockDetails(MockDetailsDto mockDetailsDto) {
+		BeanUtils.copyProperties(mockDetailsDto, mockDetails);
+		MockDetails updateDetail = mockDetailRepository.findById(mockDetails.getSno()).orElse(null);
+		if (updateDetail != null) {
+			mockDetails.setPanel(mockDetailsDto.getPanel());
+			mockDetails.setDateAndTime(mockDetailsDto.getDateAndTime());
+			mockDetails.setMockno(mockDetailsDto.getMockno());
+			mockDetails.setTechnology(mockDetailsDto.getTechnology());
+			mockDetails.setMockRating(mockDetailsDto.getMockRating());
+			mockDetailRepository.save(mockDetails);
+			return mockDetails;
+
+		}
+		return null;
+	}
+
+	@Override
+	public String deleteMockDetails(MockDetailsDto mockDetailsDto) {
+		BeanUtils.copyProperties(mockDetailsDto, mockDetails);
+		mockDetailRepository.deleteById(mockDetailsDto.getSno());
+		return null;
+	}
+
+	@Override
+	public boolean createMockInfo(MockInfo mockInfo) {
+		BeanUtils.copyProperties(mockInfo, mockDetails);
+		mockInfo.setMockId(mockInfo.getMockId());
+//		mock_Info.setMockType(mockInfoDto.getMockType());
+//		mock_Info.setMockTakenBy(mockInfoDto.getMockTakenBy());
+//		mock_Info.setPraticalMock(mockInfoDto.getPraticalMock());
+//		mock_Info.setTheoriticalMock(mockInfoDto.getTheoriticalMock());
+//		mock_Info.setOverallFeedBack(mockInfoDto.getOverallFeedBack());
+//		mock_Info.setDetailsFeddBack(mockInfoDto.getDetailsFeddBack());
+		MockInfo save = mockInfoRepository.save(mockInfo);
+		if (save != null) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public MockInfo getMockInfo(MockInfoDto mockInfoDto) {
+		BeanUtils.copyProperties(mockInfoDto, mockInfo);
+		MockInfo getDetail = mockInfoRepository.findById(mockInfo.getMockId()).orElse(null);
+
+		return getDetail;
+	}
+
+	@Override
+	public MockInfo updateMockInfo(MockInfoDto mockInfoDto) {
+		BeanUtils.copyProperties(mockInfoDto, mockInfo);
+		MockInfo updateDetail = mockInfoRepository.findById(mockInfo.getMockId()).orElse(null);
+		if (updateDetail != null) {
+			mockInfo.setMockType(mockInfoDto.getMockType());
+			mockInfo.setMockTakenBy(mockInfoDto.getMockTakenBy());
+			mockInfo.setPraticalMock(mockInfoDto.getPraticalMock());
+			mockInfo.setTheoriticalMock(mockInfoDto.getTheoriticalMock());
+			mockInfo.setOverallFeedBack(mockInfoDto.getOverallFeedBack());
+			mockInfo.setDetailsFeddBack(mockInfoDto.getDetailsFeddBack());
+			mockInfoRepository.save(mockInfo);
+			return mockInfo;
+		}
+		return null;
+
+	}
+
+	@Override
+	public String deleteMockInfo(MockInfoDto mockInfoDto) {
+		BeanUtils.copyProperties(mockInfoDto, mockInfo);
+		mockDetailRepository.deleteById(mockInfoDto.getMockId());
+		return null;
+	}
+
+	@Override
+	public PrimaryInfo register(PrimaryInfo primary_Info2) {
+		primary_Info2.setEmpPass(passwordGenerator.generateRandomString(6));
+		showReq(primary_Info2);
+		return primaryInfoRepository.save(primary_Info2);
+
+	}
+
+	@Override
+	public PrimaryInfo login(EmployeeDto employeeDto) {
+		BeanUtils.copyProperties(employeeDto, primaryInfo);
+		PrimaryInfo employeedata = primaryInfoRepository.findById(primaryInfo.getEmpId()).orElse(null);
+		if (primaryInfo.getEmpId().equalsIgnoreCase(employeedata.getEmpId())) {
+			if (primaryInfo.getEmpPass().equals(employeedata.getEmpPass())) {
+				return employeedata;
+			} else
+				return null;
+		}
+		return null;
+	}
+
+//show request API for Admin
+//	@Override
+	public void showReq(PrimaryInfo primaryInfo) {
+
+//		Primary_Info primarytable = primaryInfoRepository.findById(primary_Info.getEmpId()).orElse(null);
+//		Educational_Details details=educationalRepository.findById(educational_Details.getsNo()).orElse(null);
+//		Experience_Info info_Entity2 = experienceRepository.findById(experience_Info.getsNo()).orElse(null);
+//		Contact_Info contactInfo1 = contactRepository.findById(contact_Info.getContactNumber()).orElse(null);
+
+		PrimaryInfo primarytable = primaryInfoRepository.findById(primaryInfo.getEmpId()).orElse(null);
+		
+		List<EducationalDetails> educList = primarytable.getEducList();
+		for (EducationalDetails educationalDetails : educList) {
+			demoDto.setYop(educationalDetails.getYearOfPassing());
+			demoDto.setPercentage(educationalDetails.getPercentage());
+		}
+		
+		List<ExperienceInfo> expList = primarytable.getExpList();
+		for (ExperienceInfo experienceInfo : expList) {
+			demoDto.setExperience(experienceInfo.getYearOfExperience());
+		}
+		
+		List<ContactInfo> conList = primarytable.getConList();
+		for (ContactInfo contactInfo : conList) {
+			demoDto.setContactNumber(contactInfo.getContactNumber());
+		}
+		
+		
+		demoDto.setEmployeeId(primarytable.getEmpId());
+
+		demoDto.setEmployeeName(primarytable.getEmpName());
+		
+		
+
+//		demoDto.setYop(details.getYearOfPassing());
+//
+//		demoDto.setPercentage(details.getPercentage());
+//
+//		demoDto.setExperience(info_Entity2.getYearOfExperience());
+//
+//		demoDto.setContactNumber(contactInfo1.getContactNumber());
+		
+		
+
+		demoDtoRepository.save(demoDto);
+
+	}
+
+//	@Override
+//	public ArrayList<StatusDto> approve(EmployeeBatchDetails batchDetails2) {
+//		
+//	EmployeeBatchDetails findAll = batchDetailsRepository.findById(batchDetails2.getEmp_batch_id()).orElse(null);
+//	ArrayList<StatusDto> arrayList= new ArrayList();
+//		ArrayList<StatusDto> dto = new ArrayList();
+//		BeanUtils.copyProperties(batchDetails2, dto);
+//		return dto;
+//
+//		
+//		
+//	}
+	
+//	public ArrayList<StatusDto> approve(){
+//		List<Batch_Details> findAll = batchDetailRepository.findAll();
+//		ArrayList<StatusDto> arrayList = new ArrayList<>();
+//		for (Batch_Details employee : findAll) {
+//			arrayList.add(new StatusDto(employee.getEmpBatchId(), employee.getEmpBatchName()));
+//
+//		}
+//		return arrayList;
+//
+//	}
+
+// to save the reject msg
+	@Override
+	public StatusDto reject(StatusDto dto) {
+
+		StatusDto save = statusRepository.findById(dto.getEmp_batch_id()).orElse(null);
+		return statusRepository.save(save);
+	}
+
+//mentor Batch details
+	@Override
+	public MentorDisplay showRequest(EmployeelistInBatch demoDtoForMentor) {
+		PrimaryInfo primarytable1 = primaryInfoRepository.findById(primaryInfo.getEmpId()).orElse(null);
+		MockDetails mockDetails2 = mockDetailRepository.findById(mockDetails.getSno()).orElse(null);
+		MockInfo mock_Info2 = mockInfoRepository.findById(mockInfo.getMockId()).orElse(null);
+		BatchDetails employeeBatchDetails = batchDetailRepository.findById(batchDetails.getEmpBatchId()).orElse(null);
+
+		mentorDisplay.setEmployeeId(primarytable1.getEmpId());
+		mentorDisplay.setEmployeeName(primarytable1.getEmpName());
+		mentorDisplay.setMockRating(mockDetails2.getMockRating());
+		mentorDisplay.setStatus(employeeBatchDetails.getEmpStatus());
+		mentorDisplay.setMockTakenBy(mock_Info2.getMockTakenBy());
+		mentorDisplayRepository.save(mentorDisplay);
+		return mentorDisplay;
+
+	}
+
+//	For Login First Check and Login
+	@Override
+	public PrimaryInfo firstReset(PasswordChecking passwordChecking) {
+		if (passwordChecking.getEmpId().startsWith("TYE")) {
+			PrimaryInfo employeePrimaryInfo = new PrimaryInfo();
+			BeanUtils.copyProperties(passwordChecking, employeePrimaryInfo);
+			PrimaryInfo findById = primaryInfoRepository.findById(employeePrimaryInfo.getEmpId()).orElse(null);
+			if (findById != null) {
+				if (findById.getCount() == 0) {
+					if (passwordChecking.getGeneratedPassword().equals(findById.getEmpPass())) {
+						if (passwordChecking.getFirstPassword().equals(passwordChecking.getSecondPassword())) {
+							findById.setEmpPass(passwordChecking.getFirstPassword());
+							findById.setCount(1);
+							primaryInfoRepository.save(findById);
+							return findById;
+						}
+						return null;
+
+					}
+					return null;
+				} else if (findById.getCount() == 1) {
+					if (passwordChecking.getGeneratedPassword().equals(findById.getEmpPass())) {
+						return findById;
+					}
+					return null;
+				}
+				return null;
+			}
+			return null;
+		} else if (passwordChecking.getEmpId().startsWith("TYM")) {
+			PrimaryInfo employeePrimaryInfo = new PrimaryInfo();
+			BeanUtils.copyProperties(passwordChecking, employeePrimaryInfo);
+			PrimaryInfo findById = primaryInfoRepository.findById(employeePrimaryInfo.getEmpId()).orElse(null);
+			if (findById != null) {
+				if (findById.getCount() == 0) {
+					if (passwordChecking.getGeneratedPassword().equals(findById.getEmpPass())) {
+						if (passwordChecking.getFirstPassword().equals(passwordChecking.getSecondPassword())) {
+							findById.setEmpPass(null);
+							findById.setCount(1);
+							primaryInfoRepository.save(findById);
+							return findById;
+						}
+						return null;
+
+					}
+					return null;
+				} else if (findById.getCount() == 1) {
+					if (passwordChecking.getGeneratedPassword().equals(findById.getEmpPass())) {
+						return findById;
+					}
+					return null;
+				}
+				return null;
+			}
+			return null;
+
+		} else if (passwordChecking.getEmpId().startsWith("TYA")) {
+
+			PrimaryInfo employeePrimaryInfo = new PrimaryInfo();
+			BeanUtils.copyProperties(passwordChecking, employeePrimaryInfo);
+			PrimaryInfo findById = primaryInfoRepository.findById(employeePrimaryInfo.getEmpId()).orElse(null);
+			if (findById != null) {
+				if (findById.getCount() == 0) {
+					if (passwordChecking.getGeneratedPassword().equals(findById.getEmpPass())) {
+						if (passwordChecking.getFirstPassword().equals(passwordChecking.getSecondPassword())) {
+							findById.setEmpPass("1");
+							findById.setCount(1);
+							primaryInfoRepository.save(findById);
+							return findById;
+						}
+						return null;
+
+					}
+					return null;
+				} else if (findById.getCount() == 1) {
+					if (passwordChecking.getGeneratedPassword().equals(findById.getEmpPass())) {
+						return findById;
+					}
+					return null;
+				}
+				return null;
+			}
+			return null;
+
+		} 
+		return null;
+	}
+//update API's
+	@Override
+	public PrimaryInfo update(PrimaryInfoDto employeeUpdateDto) {
+		PrimaryInfo info = new PrimaryInfo();
+		BeanUtils.copyProperties(employeeUpdateDto, info);
+		PrimaryInfo primaryInfo = primaryInfoRepository.findById(employeeUpdateDto.getEmpId()).orElse(null);
+		if (primaryInfo != null) {
+			primaryInfo.setBloodGroup(employeeUpdateDto.getBloodGroup());
+			primaryInfo.setDesignation(employeeUpdateDto.getDesignation());
+			primaryInfo.setDob(employeeUpdateDto.getDob());
+			primaryInfo.setDoj(employeeUpdateDto.getDoj());
+			primaryInfo.setEmpStatus(employeeUpdateDto.getEmpStatus());
+			primaryInfo.setEmpName(employeeUpdateDto.getEmpName());
+			primaryInfo.setNationality(employeeUpdateDto.getNationality());
+			primaryInfo.setEmpPass(employeeUpdateDto.getEmpPass());
+			return primaryInfoRepository.save(primaryInfo);
+
+		}
+		return null;
+	}
+
+	@Override
+	public SecondaryInfo secondaryInfoUpdate(SecondaryInfoDto infoUpdate) {
+		SecondaryInfo employeeSecondaryInfo = new SecondaryInfo();
+		BeanUtils.copyProperties(infoUpdate, employeeSecondaryInfo);
+		SecondaryInfo employeeSecondaryInfo2 = secondaryRepository.findById(infoUpdate.getPanNo()).orElse(null);
+		if (employeeSecondaryInfo2 != null) {
+			employeeSecondaryInfo2.setPanNo(infoUpdate.getPanNo());
+			employeeSecondaryInfo2.setAadharNo(infoUpdate.getAadharNo());
+			employeeSecondaryInfo2.setFatherName(infoUpdate.getFatherName());
+			employeeSecondaryInfo2.setMaritalStatus(infoUpdate.getMaritalStatus());
+			employeeSecondaryInfo2.setMotherName(infoUpdate.getMotherName());
+			employeeSecondaryInfo2.setPassportNo(infoUpdate.getPassportNo());
+			employeeSecondaryInfo2.setSpouseName(infoUpdate.getSpouseName());
+
+			return secondaryRepository.save(employeeSecondaryInfo2);
+
+		}
+		return null;
+	}
+
+	@Override
+	public AddressInfo addressUpdate(AddressDto addressUpdate) {
+		AddressInfo addressInfo = new AddressInfo();
+		BeanUtils.copyProperties(addressUpdate, addressInfo);
+		AddressInfo addressInfo2 = addressRepository.findById(addressUpdate.getsNo()).orElse(null);
+		if (addressInfo2 != null) {
+			addressInfo2.setAddressType(addressUpdate.getAddressType());
+			addressInfo2.setCity(addressUpdate.getCity());
+			addressInfo2.setDoorNo(addressUpdate.getDoorNo());
+			addressInfo2.setLandMark(addressUpdate.getLandMark());
+			addressInfo2.setLocality(addressUpdate.getLocality());
+			addressInfo2.setPincode(addressUpdate.getPincode());
+			addressInfo2.setStreet(addressUpdate.getStreet());
+
+			return addressRepository.save(addressInfo2);
+
+		}
+		return null;
+//		return null;
+	}
+
+	@Override
+	public BankDetails bankUpdate(BankDetailsDto bankDetailsUpdate) {
+		BankDetails bankDetails = new BankDetails();
+		BeanUtils.copyProperties(bankDetailsUpdate, bankDetails);
+		BankDetails bankDetails2 = bankDetailsRepository.findById(bankDetailsUpdate.getAccountNo()).orElse(null);
+		if (bankDetails2 != null) {
+			bankDetails2.setAccountNo(bankDetailsUpdate.getAccountNo());
+			bankDetails2.setAccountType(bankDetailsUpdate.getAccountType());
+			bankDetails2.setBankName(bankDetailsUpdate.getBankName());
+			bankDetails2.setBranch(bankDetailsUpdate.getBranch());
+			bankDetails2.setIfscCode(bankDetailsUpdate.getIfscCode());
+			bankDetails2.setState(bankDetailsUpdate.getState());
+
+			return bankDetailsRepository.save(bankDetails2);
+
+		}
+		return null;
+	}
+
+	@Override
+	public ContactInfo contactUpdate(ContactDto contactUpdate) {
+		
+		ContactInfo contact = new ContactInfo();
+		BeanUtils.copyProperties(contactUpdate, contact);
+		ContactInfo contact2 = contactRepository.findById(contactUpdate.getContactNumber()).orElse(null);
+		if (contact2 != null) {
+			contact2.setContactNumber(contactUpdate.getContactNumber());
+			contact2.setContactType(contactUpdate.getContactType());
+			return contactRepository.save(contact2);
+		}
+		return null;
+	}
+
+	@Override
+	public EducationalDetails educationupdate(EducationalDetailsDto educationUpdate) {
+		EducationalDetails educationDetails = new EducationalDetails();
+		BeanUtils.copyProperties(educationUpdate, educationDetails);
+		EducationalDetails educationDetails2 = educationalRepository.findById(educationUpdate.getsNo()).orElse(null);
+		if (educationDetails2 != null) {
+			educationDetails2.setInstituteName(educationUpdate.getInstituteName());
+			educationDetails2.setEducationType(educationUpdate.getEducationType());
+			educationDetails2.setPercentage(educationUpdate.getPercentage());
+			educationDetails2.setSpecialization(educationUpdate.getSpecialization());
+			educationDetails2.setState(educationUpdate.getState());
+			educationDetails2.setUniversityName(educationUpdate.getUniversityName());
+			educationDetails2.setYearOfPassing(educationUpdate.getYearOfPassing());
+			return educationalRepository.save(educationDetails2);
+		}
+		return null;
+	}
+
+	@Override
+	public TechnicalInfo technicalUpdate(TechnicalDto infoUpdate) {
+		TechnicalInfo info =new TechnicalInfo();
+		BeanUtils.copyProperties(infoUpdate, info);
+		TechnicalInfo technicalInfo=technicalRepository.findById(infoUpdate.getsNo()).orElse(null);
+		if(technicalInfo != null) {
+			technicalInfo.setSkillRating(infoUpdate.getSkillRating());
+			technicalInfo.setSkillType(infoUpdate.getSkillType());
+			technicalInfo.setYearOfExperience(infoUpdate.getYearOfExperience());
+			
+			return technicalRepository.save(technicalInfo);
+		}
+		return null;
+	}
+
+	@Override
+	public ExperienceInfo getExperienceUpdate(ExperienceDto infoUpdate) {
+		ExperienceInfo employeeExperienceInfo =new ExperienceInfo();
+		BeanUtils.copyProperties(infoUpdate, employeeExperienceInfo);
+		ExperienceInfo employeeExperienceInfo2=experienceRepository.findById(infoUpdate.getsNo()).orElse(null);
+		if(employeeExperienceInfo2 != null) {
+			employeeExperienceInfo2.setCompanyName(infoUpdate.getCompanyName());
+			employeeExperienceInfo2.setDateOfJoining(infoUpdate.getDateOfJoining());
+			employeeExperienceInfo2.setDateOfRelieving(infoUpdate.getDateOfRelieving());
+			employeeExperienceInfo2.setDesignation(infoUpdate.getDesignation());
+			employeeExperienceInfo2.setLocation(infoUpdate.getLocation());
+			employeeExperienceInfo2.setYearOfExperience(infoUpdate.getYearOfExperience());
+			
+			return experienceRepository.save(employeeExperienceInfo2);
+		}
+		return null;
+	}
+//get data of employee
+	@Override
+	public  PrimaryInfo getEmployeedata(PrimaryInfoDto employeeDto) {
+		PrimaryInfo primaryInfo=new PrimaryInfo();
+		BeanUtils.copyProperties(employeeDto, primaryInfo);
+		PrimaryInfo getdata = primaryInfoRepository.findById(primaryInfo.getEmpId()).orElse(null);
+		if(getdata!=null) {
+			return getdata;
+		}
+		return null;
+	}
+//create mentor	
+	@Override
+	public MentorEntity createMentorList(MentorListDto list) {
+		if(list.getMentorId().startsWith("TYM")) {
+			MentorEntity list2 = new MentorEntity();
+			BeanUtils.copyProperties(list, list2);
+			return (list2);
+		}
+		
+		return null;
+			
+	}
+
+
+//update mentor
+	@Override
+	public MentorEntity createMentorUpdate(MentorUpdateDto dto) {
+		
+		MentorEntity list = new MentorEntity();
+		BeanUtils.copyProperties(dto, list);
+	MentorEntity mentordetails=mentorEntityRepository.findById(list.getMentorId()).orElse(null);
+		if(mentordetails != null) {
+			list.setMentorEmailId(dto.getMentorEmailId());
+			list.setMentorName(dto.getMentorName());
+			list.setSkills(dto.getSkills());
+			return mentorEntityRepository.save(list);
+	
+		}
+		return null;
+	}
+//delete mentor
+	@Override
+	public boolean createMentorDelete(MentorDeleteDto deleteDto) {
+		boolean isRegister=false;
+		MentorEntity list = new MentorEntity();
+		BeanUtils.copyProperties(deleteDto, list);
+		MentorEntity list2 = mentorEntityRepository.findById(list.getMentorId()).orElse(null);
+		if(list2 != null) {
+			mentorEntityRepository.delete(list2);
+			isRegister=true;
+		}
+		return isRegister;
+	}
+//search batch
+@Override
+	public BatchDetails searchBatchDetails(BatchDetailsDto batchDetailDto) {
+		if (batchDetailDto.getEmp_batch_id().startsWith("TYB")) {
+			if (batchDetailDto.getEmp_batch_id().equals(batchDetailDto.getEmp_batch_id())) {
+				BeanUtils.copyProperties(batchDetailDto, batchDetails);
+				BatchDetails searchbatch = batchDetailRepository.findById(batchDetailDto.getEmp_batch_id())
+						.orElse(null);
+				if (searchbatch != null)
+					return searchbatch;
+				else
+					return null;
+			}
+			return null;
+
+		}
+		return null;
+	}
+
+//Batch CRUD API's
+@Override
+public BatchDetails createBatchDetails(BatchDetails batchDetails) {
+	BatchDetails save = batchDetailRepository.save(batchDetails);
+// save = batchDetailsRepository.save(batchDetails);
+	if (save != null)
+		return save;
+	else
+		return null;
+}
+
+@Override
+public BatchDetails getBatchDetails(BatchDetailsDto batchDetailDto) {
+	BeanUtils.copyProperties(batchDetailDto, batchDetails);
+	BatchDetails getbatchdetail = batchDetailRepository.findById(batchDetailDto.getEmp_batch_id())
+			.orElse(null);
+	return getbatchdetail;
+}
+
+@Override
+public BatchDetails updateBatchDetails(BatchDetailsDto batchDetailDto) {
+	BeanUtils.copyProperties(batchDetailDto, batchDetails);
+	BatchDetails updatebatch = batchDetailRepository.findById(batchDetailDto.getEmp_batch_id())
+			.orElse(null);
+	if (updatebatch != null) {
+		batchDetails.setEmpBatchId(batchDetailDto.getEmp_batch_id());
+		batchDetails.setEmpBatchName(batchDetailDto.getEmp_batch_name());
+		batchDetails.setEmpMentorName(batchDetailDto.getEmp_mentor_name());
+		batchDetails.setEmpTechnologies(batchDetailDto.getEmp_mentor_name());;
+		batchDetails.setEmpStartDate(batchDetailDto.getEmp_start_date());;
+		batchDetails.setEmpEndDate(batchDetailDto.getEmp_end_date());
+		batchDetails.setEmpAction(batchDetailDto.getEmp_action());;
+		batchDetails.setEmpStatus(batchDetailDto.getEmp_status());
+		batchDetails.setEmpStrength(batchDetailDto.getEmp_batch_Strength());
+		batchDetailRepository.save(batchDetails);
+		return batchDetails;
+	}
+	return null;
+}
+
+@Override
+public String deleteBatchDetails(BatchDetailsDto batchDetailDto) {
+	BeanUtils.copyProperties(batchDetailDto, batchDetails);
+	batchDetailRepository.deleteById(batchDetailDto.getEmp_batch_id());
+	return null;
+}
+
+@Override
+public List<RequestListForEmployee> employeeRequest() {
+List<DemoDto> findAll = demoDtoRepository.findAll();
+	
+	List<RequestListForEmployee> forEmployee = new ArrayList<RequestListForEmployee>();
+	
+	for(DemoDto demoDto :findAll) {
+		forEmployee.add(new RequestListForEmployee(demoDto.getEmployeeId(),demoDto.getEmployeeName(),
+				demoDto.getExperience(),demoDto.getPercentage(),demoDto.getContactNumber()));
+	}
+	
+	return forEmployee;
+}
+
+@Override
+public ArrayList<StatusDto> approve() {
+	List<BatchDetails> findAll = batchDetailRepository.findAll();
+	ArrayList<StatusDto> arrayList = new ArrayList<>();
+	for (BatchDetails employee : findAll) {
+		arrayList.add(new StatusDto(employee.getEmpBatchId(), employee.getEmpBatchName()));
+	}
+	return arrayList;
+}
+
+@Override
+public void approveStoring(AdminShowRequestDto adminShowRequestDto) {
+	ApproveListByAdmin admin =new ApproveListByAdmin();
+	BeanUtils.copyProperties(adminShowRequestDto, admin);
+	approveRepositary.save(admin);
+	
+}
+
+	
+
+
+}

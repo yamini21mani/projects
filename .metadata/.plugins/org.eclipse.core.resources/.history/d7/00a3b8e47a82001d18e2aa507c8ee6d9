@@ -1,0 +1,26 @@
+package com.te.ecommerce.entity;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Data
+public class SalesOrder {
+	@Id
+	private Integer id;
+
+	@OneToOne
+	private Customer customer;
+	@OneToOne(cascade = CascadeType.ALL)
+	private BillingAddress billingAddress;
+	@OneToOne(cascade = CascadeType.ALL)
+	private ShippingAddress shippingAddress;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Cart cart;
+}

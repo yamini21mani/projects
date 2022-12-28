@@ -1,0 +1,66 @@
+package com.te.ecommerce.serviceimplementation;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.te.ecommerce.dto.ProductDto;
+import com.te.ecommerce.entity.Product;
+import com.te.ecommerce.exceptionhandling.ProductException;
+import com.te.ecommerce.repository.ProductRepository;
+import com.te.ecommerce.serviceinterface.ProductService;
+
+@Service
+public class ProductServiceImp implements ProductService {
+	@Autowired
+	private ProductRepository productRepository;
+	@Autowired
+	private Product product;
+//	@Autowired
+//	private ProductDto productDto;
+
+	@Override
+	public boolean createProduct(ProductDto productDto) {
+		BeanUtils.copyProperties(productDto, product);
+		productRepository.save(product);
+		productRepository.findById(product.getId()).orElseThrow(()->  new ProductException("Unable to add product"));
+		return true;
+		
+	}
+
+	@Override
+	public Product getProduct(ProductDto productDto) {
+		BeanUtils.copyProperties(productDto, product);
+		Product getProduct = productRepository.findById(product.getId())
+				.orElseThrow(() ->  new ProductException("No data found, please check the product ID"));
+		return getProduct;
+	}
+
+	@Override
+	public boolean updateProduct(ProductDto productDto) {
+		Product foundproduct = productRepository.findById(product.getId())
+				.orElseThrow(() -> new ProductException("Please Check the product ID"));
+		if(productDto.getId()==product.getId()) {
+			BeanUtils.copyProperties(productDto, product);
+
+		product.setName(product.getName());
+		product.setCategory(productDto.getCategory());
+		product.setPrice(productDto.getPrice());
+		product.setDescription(productDto.getDescription());
+		product.setManufacturer(productDto.getManufacturer());
+		productRepository.save(product);
+		return true;
+		
+	}
+		return false;}
+
+	@Override
+	public boolean deleteProduct(ProductDto productDto) {
+		BeanUtils.copyProperties(productDto, product);
+		Product foundproduct = productRepository.findById(product.getId())
+				.orElseThrow(() -> new ProductException("Unable to Delete the data, please check the Product ID"));
+		productRepository.delete(foundproduct);
+		return true;
+	}
+
+}

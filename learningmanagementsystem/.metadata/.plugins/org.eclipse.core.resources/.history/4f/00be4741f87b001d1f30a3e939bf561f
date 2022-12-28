@@ -1,0 +1,13 @@
+package com.te.learningmanagementsystem.chartdto;
+
+import java.util.List;
+
+public class EmpBatchPerformance {
+
+	private List<String> mockRating;
+
+	public EmpBatchPerformance(List<String> mockRating) {
+		super();
+		this.mockRating = mockRating;
+	}
+}

@@ -1,0 +1,9 @@
+package com.te.learningmanagementsystem.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.te.learningmanagementsystem.entity.Technical_Info;
+
+public interface TechnicalRepository extends JpaRepository<Technical_Info, Integer> {
+
+}

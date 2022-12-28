@@ -1,0 +1,21 @@
+package com.te.ecommerce.exceptionhandling;
+
+public class CredentialsException extends RuntimeException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5095134462263672000L;
+	String message;
+
+	public CredentialsException(String message) {
+		super();
+		this.message = message;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	
+
+}

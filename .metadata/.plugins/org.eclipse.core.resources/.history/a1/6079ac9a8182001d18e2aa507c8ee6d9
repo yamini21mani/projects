@@ -1,0 +1,32 @@
+package com.te.ecommerce.entity;
+
+
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Data
+//@Component
+public class Cart {
+	@Id
+	private Integer id;
+	private double totalPrice;
+	
+	@OneToOne(mappedBy = "cart")
+	private Customer customers;
+	@OneToMany(mappedBy = "cart")
+	private List<CartItem> cartItem;
+	@OneToOne(mappedBy = "cart")
+	private SalesOrder salesOrder;
+	
+}

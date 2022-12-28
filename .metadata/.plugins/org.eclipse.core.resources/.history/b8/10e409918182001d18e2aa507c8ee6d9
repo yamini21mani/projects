@@ -1,0 +1,31 @@
+package com.te.ecommerce.entity;
+
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Data
+//@Component
+public class CartItem {
+	@Id
+	private Integer id;
+	private String quantity;
+	private double price;
+	
+	@ManyToOne (cascade = CascadeType.ALL)
+	private Cart cart;
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Product> product;
+
+}

@@ -1,0 +1,15 @@
+package com.te.learningmanagementsystem.chartdto;
+
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+@Component
+public class EmpYearOfExperience {
+
+	private List<String> yearOfExperience;
+
+	public EmpYearOfExperience(List<String> yearOfExperience) {
+		super();
+		this.yearOfExperience = yearOfExperience;
+	}
+}

@@ -1,0 +1,15 @@
+package com.te.ecommerce.exceptionhandling;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+
+import com.te.ecommerce.response.EcommerceResponse;
+
+public class ExceptionController {
+	@Autowired
+EcommerceResponse ecommerceResponse;
+
+public ResponseEntity<EcommerceResponse> credentialException(CredentialsException credentialsException){
+	
+}
+}

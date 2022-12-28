@@ -1,0 +1,15 @@
+package com.te.learningmanagementsystem.chartdto;
+
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+@Component
+public class EmpGender {
+		
+		private List<String> gender;
+
+		public EmpGender(List<String> gender) {
+			this.gender = gender;
+		}
+
+}

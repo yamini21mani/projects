@@ -1,0 +1,11 @@
+package com.te.ecommerce.response;
+
+import lombok.Data;
+
+@Data
+public class EcommerceResponse {
+	private String message;
+	private boolean error;
+	private String status;
+	private Object data;
+}

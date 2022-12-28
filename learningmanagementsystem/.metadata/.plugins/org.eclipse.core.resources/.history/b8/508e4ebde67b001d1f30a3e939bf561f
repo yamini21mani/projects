@@ -1,0 +1,46 @@
+package com.te.learningmanagementsystem.dto;
+
+import org.springframework.stereotype.Component;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+@Entity
+@Component
+public class StatusDto {
+	@Id
+	private String emp_batch_id;
+	private String emp_batch_name;
+	private String rejectmsg;
+	
+	public StatusDto(String emp_batch_id, String emp_batch_name) {
+		super();
+		this.emp_batch_id = emp_batch_id;
+		this.emp_batch_name = emp_batch_name;
+	}
+	public StatusDto() {
+		
+	}
+	public StatusDto(String empBatchId) {
+		// TODO Auto-generated constructor stub
+	}
+	public String getEmp_batch_id() {
+		return emp_batch_id;
+	}
+	public String getRejectmsg() {
+		return rejectmsg;
+	}
+	public void setRejectmsg(String rejectmsg) {
+		this.rejectmsg = rejectmsg;
+	}
+	public void setEmp_batch_id(String emp_batch_id) {
+		this.emp_batch_id = emp_batch_id;
+	}
+	public String getEmp_batch_name() {
+		return emp_batch_name;
+	}
+	public void setEmp_batch_name(String emp_batch_name) {
+		this.emp_batch_name = emp_batch_name;
+	}
+	
+
+}

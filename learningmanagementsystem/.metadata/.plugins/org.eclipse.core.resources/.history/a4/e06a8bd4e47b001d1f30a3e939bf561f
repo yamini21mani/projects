@@ -1,0 +1,101 @@
+package com.te.learningmanagementsystem.serviceInterface;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.te.learningmanagementsystem.dto.AddressDto;
+import com.te.learningmanagementsystem.dto.AdminShowRequestDto;
+import com.te.learningmanagementsystem.dto.BankDetailsDto;
+import com.te.learningmanagementsystem.dto.BatchDetailsDto;
+import com.te.learningmanagementsystem.dto.ContactDto;
+import com.te.learningmanagementsystem.dto.DemoDto;
+import com.te.learningmanagementsystem.dto.EmployeelistInBatch;
+import com.te.learningmanagementsystem.dto.EducationalDetailsDto;
+import com.te.learningmanagementsystem.dto.EmployeeDto;
+import com.te.learningmanagementsystem.dto.ExperienceDto;
+import com.te.learningmanagementsystem.dto.MentorDeleteDto;
+import com.te.learningmanagementsystem.dto.MentorListDto;
+import com.te.learningmanagementsystem.dto.MentorUpdateDto;
+import com.te.learningmanagementsystem.dto.MockDetailsDto;
+import com.te.learningmanagementsystem.dto.MockInfoDto;
+import com.te.learningmanagementsystem.dto.PasswordChecking;
+import com.te.learningmanagementsystem.dto.PrimaryInfoDto;
+import com.te.learningmanagementsystem.dto.RequestListForEmployee;
+import com.te.learningmanagementsystem.dto.SecondaryInfoDto;
+import com.te.learningmanagementsystem.dto.StatusDto;
+import com.te.learningmanagementsystem.dto.TechnicalDto;
+import com.te.learningmanagementsystem.entity.AddressInfo;
+import com.te.learningmanagementsystem.entity.BankDetails;
+import com.te.learningmanagementsystem.entity.BatchDetails;
+import com.te.learningmanagementsystem.entity.ContactInfo;
+import com.te.learningmanagementsystem.entity.Educational_Details;
+import com.te.learningmanagementsystem.entity.Experience_Info;
+import com.te.learningmanagementsystem.entity.MentorDisplay;
+import com.te.learningmanagementsystem.entity.Mentor_Entity;
+import com.te.learningmanagementsystem.entity.Mock_Details;
+import com.te.learningmanagementsystem.entity.Mock_Info;
+import com.te.learningmanagementsystem.entity.Primary_Info;
+import com.te.learningmanagementsystem.entity.Secondary_Info;
+import com.te.learningmanagementsystem.entity.Technical_Info;
+
+public interface EmployeeService {
+//Employee Delete API's
+	public String deleteAddress(AddressDto addressDto);
+	public String deleteExperience(ExperienceDto experienceDto);
+	public String deleteContact(ContactDto contactDto);
+	public String deleteTechnical(TechnicalDto technicalDto);	
+//Mock DATA API's
+//	public boolean createMockData(MockDetailsDto mockDetailsDto);
+	public boolean createMockData(MockDetailsDto mockDetailsDto);
+	public Mock_Details getMockDetails(MockDetailsDto mockDetailsDto);
+	public Mock_Details updateMockDetails(MockDetailsDto mockDetailsDto);
+	public String deleteMockDetails(MockDetailsDto mockDetailsDto);
+//Mock INFO API's
+	public boolean createMockInfo(Mock_Info mock_Info);
+	public Mock_Info getMockInfo(MockInfoDto mockInfoDto);
+	public Mock_Info updateMockInfo(MockInfoDto mockInfoDto);
+	public String deleteMockInfo(MockInfoDto mockInfoDto);
+// update API's
+	public Primary_Info update(PrimaryInfoDto employeeUpdateDto);
+	public Secondary_Info secondaryInfoUpdate(SecondaryInfoDto infoUpdate);
+	public AddressInfo addressUpdate(AddressDto addressUpdate);
+	public BankDetails bankUpdate(BankDetailsDto bankDetailsUpdate);
+	public ContactInfo contactUpdate(ContactDto contactUpdate);
+	public Educational_Details educationupdate(EducationalDetailsDto educationUpdate);
+	public Technical_Info technicalUpdate(TechnicalDto infoUpdate);
+	public Experience_Info getExperienceUpdate(ExperienceDto infoUpdate);	
+//register API
+	public Primary_Info register(Primary_Info primary_Info2);	
+//Get API's
+	public Primary_Info getEmployeedata(PrimaryInfoDto employeeDto);
+//Delete API	
+	public String deleteEmployeedata(EmployeeDto employeeDto); 
+//Admin approval API's
+	//public void showReq();
+	public List<RequestListForEmployee> employeeRequest();
+	public ArrayList<StatusDto> approve();
+	public void approveStoring(AdminShowRequestDto adminShowRequestDto);
+	public StatusDto reject(StatusDto dto);
+	public MentorDisplay showRequest(EmployeelistInBatch demoDtoForMentor);
+//Employee first time login
+	Primary_Info firstReset(PasswordChecking passwordChecking);
+//Login API
+	public Primary_Info login(EmployeeDto employeeDto); 
+
+//Mentor list
+		public Mentor_Entity createMentorList(MentorListDto list);
+		public Mentor_Entity createMentorUpdate(MentorUpdateDto dto);	
+		public boolean createMentorDelete(MentorDeleteDto deleteDto);
+		public BatchDetails searchBatchDetails(BatchDetailsDto batchDetailDto);
+//batch details API
+		public BatchDetails createBatchDetails(BatchDetails batchDetails);
+		public BatchDetails getBatchDetails(BatchDetailsDto batchDetailDto);
+		public BatchDetails updateBatchDetails(BatchDetailsDto batchDetailDto);
+		public String deleteBatchDetails(BatchDetailsDto batchDetailDto);
+		
+		
+//		public String deleteBatchDetails(BatchDetailsDto batchDetailDto);
+//		public Batch_Details getBatchDetails(BatchDetailsDto batchDetailDto);
+//		public Batch_Details updateBatchDetails(BatchDetailsDto batchDetailDto);
+//		public Batch_Details createBatchDetails(Batch_Details batchDetails) ;
+}

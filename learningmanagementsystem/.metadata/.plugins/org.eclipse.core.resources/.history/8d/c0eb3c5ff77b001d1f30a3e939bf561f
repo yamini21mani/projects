@@ -1,0 +1,15 @@
+package com.te.learningmanagementsystem.chartdto;
+
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+@Component
+public class EmpYearOfPassing {
+
+	private List<String> yearOfPassing;
+
+	public EmpYearOfPassing(String yearOfPassing) {
+		super();
+		this.yearOfPassing = yearOfPassing;
+	}
+}

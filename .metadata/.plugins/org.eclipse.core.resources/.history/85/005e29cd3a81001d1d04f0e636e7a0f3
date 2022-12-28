@@ -1,0 +1,36 @@
+package com.te.ecommerce.entity;
+
+import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Product {
+	@Id
+	private Integer id;
+	@NotBlank
+	private String category;
+	@NotBlank
+	private String description;
+	@NotBlank
+	private String manufacturer;
+	@NotBlank
+	private String name;
+	@NotBlank
+	private double price;
+	
+//	private String unit;
+	
+	@ManyToMany(mappedBy = "product")
+//	@JoinColumn(name="productid",referencedColumnName = "id")
+	private List<CartItem> cartItem;
+}

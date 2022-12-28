@@ -1,0 +1,35 @@
+package com.te.learningmanagementsystem.chartdto;
+
+import java.util.List;
+
+public class FetchMockDetails {
+
+private List<String> mockTaken;
+	
+	private List<String> mockRating;
+	
+	
+	public List<String> getMockTaken() {
+		return mockTaken;
+	}
+	public void setMockTaken(List<String> mockTaken) {
+		this.mockTaken = mockTaken;
+	}
+	public List<String> getMockRating() {
+		return mockRating;
+	}
+	
+	public void setMockRating(List<String> mockRating) {
+		this.mockRating = mockRating;
+	}
+	public FetchMockDetails(List<String> mockTaken) {
+		super();
+		this.mockTaken = mockTaken;
+	}
+	
+	public FetchMockDetails(List<String> mockTaken, List<String> mockRating) {
+		super();
+		this.mockTaken = mockTaken;
+		this.mockRating = mockRating;
+	}
+}

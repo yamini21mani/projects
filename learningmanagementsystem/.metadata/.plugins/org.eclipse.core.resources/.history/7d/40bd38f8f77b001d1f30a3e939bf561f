@@ -1,0 +1,15 @@
+package com.te.learningmanagementsystem.chartdto;
+
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+@Component
+public class EmpEducationType {
+
+	private List<String> educationType;
+
+	public EmpEducationType(List<String> educationType) {
+		super();
+		this.educationType = educationType;
+	}
+}

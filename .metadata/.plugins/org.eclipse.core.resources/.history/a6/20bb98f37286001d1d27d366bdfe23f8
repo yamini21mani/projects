@@ -1,0 +1,7 @@
+package com.te.ecommerce.repository;
+
+
+
+public interface UserRepository {
+
+}

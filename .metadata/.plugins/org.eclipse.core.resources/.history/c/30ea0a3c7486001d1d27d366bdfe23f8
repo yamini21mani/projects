@@ -1,0 +1,23 @@
+package com.te.ecommerce.serviceimplementation;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+
+import com.te.ecommerce.dto.RoleDto;
+import com.te.ecommerce.entity.Roles;
+import com.te.ecommerce.exceptionhandling.GeneralException;
+import com.te.ecommerce.serviceinterface.AdminInterface;
+
+@Service
+public class AdminServiceImp implements AdminInterface{
+	@Override
+	public boolean createRole(RoleDto roleDto) {
+		Roles roles=new Roles();
+		BeanUtils.copyProperties(roleDto, roles);
+		Roles savedRole = rolesRepository.save(roles);
+		if(savedRole!=null)
+		return true;
+		else 
+		throw new GeneralException("unable to create Role");
+	}
+}

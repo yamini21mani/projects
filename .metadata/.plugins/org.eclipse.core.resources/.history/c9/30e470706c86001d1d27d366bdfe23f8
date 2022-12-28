@@ -1,0 +1,17 @@
+package com.te.ecommerce.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.UniqueConstraint;
+
+import lombok.Builder;
+import lombok.Data;
+@Builder
+@Data
+@Entity
+public class Roles {
+	@Id
+	private Integer roleId;
+	@UniqueConstraint(columnNames = "roleName")
+	private String roleName;
+}

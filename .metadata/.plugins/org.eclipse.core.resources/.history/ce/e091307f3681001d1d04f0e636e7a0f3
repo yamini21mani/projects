@@ -1,0 +1,12 @@
+package com.te.ecommerce.serviceinterface;
+
+import com.te.ecommerce.dto.ProductDto;
+import com.te.ecommerce.entity.Customer;
+import com.te.ecommerce.entity.Product;
+
+public interface CustomerService {
+	//registeration API
+	public boolean register(Customer customer);
+	
+	public Product searchProduct(ProductDto productDto);
+}

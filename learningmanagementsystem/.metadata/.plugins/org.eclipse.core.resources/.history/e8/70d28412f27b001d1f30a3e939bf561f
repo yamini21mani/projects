@@ -1,0 +1,13 @@
+package com.te.learningmanagementsystem.chartdto;
+
+import java.util.List;
+
+public class EmpGender {
+		
+		private List<String> gender;
+
+		public EmpGender(List<String> gender) {
+			this.gender = gender;
+		}
+
+}

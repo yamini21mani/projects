@@ -1,0 +1,8 @@
+package com.te.ecommerce.serviceinterface;
+
+import com.te.ecommerce.entity.Customer;
+
+public interface CustomerService {
+	//registeration API
+	public boolean register(Customer customer);
+}

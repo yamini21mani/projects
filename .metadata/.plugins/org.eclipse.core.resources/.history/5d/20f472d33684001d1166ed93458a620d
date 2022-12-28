@@ -1,0 +1,20 @@
+package com.te.ecommerce.serviceinterface;
+
+import com.te.ecommerce.dto.CartItemDto;
+import com.te.ecommerce.dto.ProductDto;
+import com.te.ecommerce.entity.Product;
+
+public interface ProductService {
+	//product entity CRUD API's
+	public boolean createProduct(ProductDto productDto);
+	public Product getProduct(ProductDto productDto);
+	public boolean updateProduct(ProductDto productDto);
+	public boolean deleteProduct(ProductDto productDto);
+	
+	//Search products API
+//	public Product searchproduct(ProductDto productDto);
+	
+	 public boolean addCartItem( ProductDto productDto);
+	 public boolean updateCartItem(ProductDto productDto);
+	 public void deteleCartItem(ProductDto productDto);
+}

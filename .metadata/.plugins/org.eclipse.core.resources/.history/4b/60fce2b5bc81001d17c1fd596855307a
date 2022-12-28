@@ -1,0 +1,8 @@
+package com.te.ecommerce.serviceimplementation;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class ShippingAddressServImp extends {
+
+}

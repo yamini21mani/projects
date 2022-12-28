@@ -1,0 +1,9 @@
+package com.te.learningmanagementsystem.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.te.learningmanagementsystem.entity.Bank_Details;
+
+public interface BankDetailsRepository extends JpaRepository<Bank_Details, Long>{
+
+}

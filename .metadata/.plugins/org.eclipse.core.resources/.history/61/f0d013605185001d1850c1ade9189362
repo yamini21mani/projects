@@ -1,0 +1,5 @@
+package com.te.ecommerce.springsecurity;
+
+public class WebConfiguration {
+
+}

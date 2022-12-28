@@ -1,0 +1,29 @@
+package com.te.ecommerce.entity;
+
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class BillingAddress {
+	@Id
+	private Integer id;
+	private String address;
+	private String city;
+	private String state;
+	private int zipcode;
+	private String country;
+	
+	@OneToOne(mappedBy = "billingAddress")
+	private Customer customer;
+	@OneToOne(mappedBy = "billingAddress")
+	private SalesOrder salesOrder;
+	
+	
+}

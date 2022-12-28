@@ -1,0 +1,11 @@
+package com.te.ecommerce.serviceimplementation;
+
+import org.springframework.stereotype.Service;
+
+import com.te.ecommerce.entity.ShippingAddress;
+import com.te.ecommerce.serviceinterface.ShippingAddressInterface;
+
+@Service
+public class ShippingAddressServImp implements ShippingAddressInterface {
+
+}

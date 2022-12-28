@@ -1,0 +1,14 @@
+package com.te.ecommerce.serviceimplementation;
+
+import org.springframework.stereotype.Service;
+
+import com.te.ecommerce.dto.AddressDto;
+import com.te.ecommerce.entity.BillingAddress;
+import com.te.ecommerce.serviceinterface.BillingAddressInterface;
+@Service
+public class BillingAddressServImp implements BillingAddressInterface {
+	public boolean addBillingAddress(AddressDto addressDto);
+	public BillingAddress getBillingAddress(AddressDto addressDto);
+	public BillingAddress updateBillingAddress(AddressDto addressDto);
+	public void deleteBillingAddress(AddressDto addressDto);
+}

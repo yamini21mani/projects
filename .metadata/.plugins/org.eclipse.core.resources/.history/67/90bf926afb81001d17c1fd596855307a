@@ -1,0 +1,5 @@
+package com.te.ecommerce.exceptionhandling;
+
+public class GeneralException extends RuntimeException{
+
+}

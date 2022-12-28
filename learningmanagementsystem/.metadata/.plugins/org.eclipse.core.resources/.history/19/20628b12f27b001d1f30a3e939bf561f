@@ -1,0 +1,13 @@
+package com.te.learningmanagementsystem.chartdto;
+
+import java.util.List;
+
+public class EmpYearOfPassing {
+
+	private List<String> yearOfPassing;
+
+	public EmpYearOfPassing(List<String> yearOfPassing) {
+		super();
+		this.yearOfPassing = yearOfPassing;
+	}
+}

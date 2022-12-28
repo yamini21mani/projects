@@ -1,0 +1,38 @@
+package com.te.ecommerce.entity;
+
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotBlank;
+
+import org.springframework.stereotype.Component;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Component
+public class Product {
+	@Id
+	private Integer id;
+	@NotBlank
+	private String category;
+	@NotBlank
+	private String description;
+	@NotBlank
+	private String manufacturer;
+	@NotBlank
+	private String name;
+	@NotBlank
+	private double price;
+	
+//	private String unit;
+	
+	@ManyToMany(mappedBy = "product")
+	private List<CartItem> cartItem;
+}
