@@ -2,6 +2,8 @@ package com.te.ecommerce.entity;
 
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
@@ -17,6 +19,7 @@ import lombok.NoArgsConstructor;
 @Component
 public class ShippingAddress {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@NotBlank
 	private String address;

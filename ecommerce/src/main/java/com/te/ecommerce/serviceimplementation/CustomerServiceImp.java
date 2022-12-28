@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 import com.te.ecommerce.dto.CustomerDto;
@@ -17,10 +18,15 @@ import com.te.ecommerce.entity.SalesOrder;
 import com.te.ecommerce.entity.ShippingAddress;
 import com.te.ecommerce.entity.User;
 import com.te.ecommerce.exceptionhandling.CredentialsException;
+import com.te.ecommerce.exceptionhandling.GeneralException;
 import com.te.ecommerce.exceptionhandling.ProductException;
+import com.te.ecommerce.repository.BillingAddressRepository;
+import com.te.ecommerce.repository.CartRepository;
 import com.te.ecommerce.repository.CustomerRepository;
 import com.te.ecommerce.repository.ProductRepository;
 import com.te.ecommerce.repository.SalesOrderRepository;
+import com.te.ecommerce.repository.ShippingAddressRepository;
+import com.te.ecommerce.repository.UserRepository;
 import com.te.ecommerce.serviceinterface.CustomerService;
 
 @Service
@@ -32,10 +38,14 @@ public class CustomerServiceImp implements CustomerService {
 	@Autowired
 	private SalesOrderRepository salesOrderRepository;
 	
-//	@Autowired
-//	private ShippingAddressRepository shippingAddressRepository;
-//	@Autowired
-//	private BillingAddressRepository billingAddressRepository;
+	@Autowired
+	private ShippingAddressRepository shippingAddressRepository;
+	@Autowired
+	private BillingAddressRepository billingAddressRepository;
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private CartRepository cartRepository;
 //	@Autowired
 //	private OtpGenerator otpGenerator;
 	@Autowired
@@ -44,19 +54,22 @@ public class CustomerServiceImp implements CustomerService {
 	private SalesOrder salesOrder;
 	@Autowired
 	private BillingAddress billingAddress;
+//	@Autowired
+//	UserDetailsServiceAutoConfiguration userDetailsServiceAutoConfiguration;
 	@Autowired
 	private Cart cart;
 //registeration
 	public boolean register(Customer customer) {
-//		customer.setOtp(otpGenerator.generateRandomString(6));
-//		customerRepository.save(customer);
-//		CustomerDto dto = new CustomerDto();
+			billingAddressRepository.save(customer.getBillingAddress());
+			shippingAddressRepository.save(customer.getShippingAddress());
+			userRepository.save(customer.getUser());
+			cartRepository.save(customer.getCart());
+			
 			Customer registerdetails = customerRepository.save(customer);
 			if (registerdetails != null)
 				return true;
 		else
 			throw new CredentialsException("Something went wrong");
-//		return false;
 	}
 //Search API's
 	@Override
@@ -112,12 +125,9 @@ public class CustomerServiceImp implements CustomerService {
 		if (founddata != null) {
 			customer.setFirstName(customerDto.getFirstName());
 			customer.setLastName(customerDto.getLastName());
-			customer.setPassword(customerDto.getPassword());
 			customer.setPhoneno(customerDto.getPhoneno());
-//			customer.setEmail(customerDto.getEmail());
 			customer.setBillingAddress(billingAddress);
 			customer.getCart().setId(cart.getId());
-//			customer.setSalesOrder(salesOrder);
 			customer.setShippingAddress(shippingAddress);
 			customerRepository.save(customer);
 		}
@@ -166,20 +176,18 @@ public class CustomerServiceImp implements CustomerService {
 	}
 	@Override
 	public User login(UserDto userDto) {
-		return null;
+		User user=new User();
+		BeanUtils.copyProperties(userDto, user);
+		User data = userRepository.findById(user.getId()).orElseThrow(()-> new GeneralException("Unable to authenticate"));
+//		UserDetailsServiceAutoConfiguration autoConfiguration;
+		
+		return data;
+		}
+
 	}
-//	@Override
-//	public boolean createRole(RoleDto roleDto) {
-//		Roles roles=new Roles();
-//		BeanUtils.copyProperties(roleDto, roles);
-//		Roles savedRole = rolesRepository.save(roles);
-//		if(savedRole!=null)
-//		return true;
-//		else 
-//		throw new GeneralException("unable to create Role");
-//	}
+	
 	
 	
 
 	
-}
+

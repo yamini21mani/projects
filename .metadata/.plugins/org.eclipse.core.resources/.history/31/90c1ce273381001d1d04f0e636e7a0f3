@@ -1,8 +1,0 @@
-package com.te.ecommerce.dto;
-
-public class LoginDto {
-private String email;
-private String password;
-private int otp;
-private long phoneno;
-}

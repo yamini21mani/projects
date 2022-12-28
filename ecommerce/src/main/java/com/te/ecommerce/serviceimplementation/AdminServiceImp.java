@@ -38,8 +38,7 @@ public class AdminServiceImp implements AdminInterface{
 		if(data!=null)
 			rolesRepository.delete(data);
 		return true;
-		
-		
+				
 		
 	}
 	

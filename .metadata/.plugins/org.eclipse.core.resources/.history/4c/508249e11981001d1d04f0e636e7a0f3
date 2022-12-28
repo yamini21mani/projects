@@ -1,5 +1,0 @@
-package com.te.ecommerce.exceptionhandling;
-
-public class ProductException {
-
-}

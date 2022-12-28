@@ -1,5 +1,0 @@
-package com.te.ecommerce.serviceinterface;
-
-public interface ServiceInterface {
-
-}
